@@ -11,7 +11,7 @@ image.onclick = function() {
     }
     clicker.textContent++;
     const timeAfter = new Date();
-    const speed = 1 / (timeAfter.getSeconds() - timeBefore.getSeconds());
+    const speed = 1 /((timeAfter.getTime() - timeBefore.getTime())*60);
     clickSpeed.textContent = speed;
     return true;
 }
