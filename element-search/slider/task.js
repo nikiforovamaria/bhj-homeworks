@@ -1,60 +1,62 @@
-const prev = document.querySelector('.slider__arrow_prev');
-const next = document.querySelector('.slider__arrow_next');
-const sliderItems = document.querySelectorAll('.slider__item');
-const sliderDots = document.querySelectorAll('.slider__dot');
+const sliderItems = Array.from(document.querySelectorAll('.slider__item'));
+const sliderDots = Array.from(document.querySelectorAll('.slider__dot'));
 
-function checkSliderDot() {
+function getArrow() {
+    const sliderArrow = document.querySelectorAll('.slider__arrow');
+    for (let i = 0; i < sliderArrow.length; i++) {
+        sliderArrow[i].onclick = function() {
+            let value;
+            if (this.classList.contains('slider__arrow_prev')) {
+            value = 'prev';
+            } else {
+            value = 'next';
+            }
+            getImage(value);
+        }
+    }
+}
+
+getArrow();
+
+function getImage(value) {
+    const imageNum = sliderItems.findIndex(item => item.classList.contains('slider__item_active'));
+    sliderItems[imageNum].classList.toggle('slider__item_active');
+    sliderDots[imageNum].classList.toggle('slider__dot_active');
+    if (value == 'next') {
+        if (imageNum == sliderItems.length - 1) {
+            sliderItems[0].classList.toggle('slider__item_active');
+            sliderDots[0].classList.toggle('slider__dot_active');
+            return;
+        } else {
+            sliderItems[imageNum + 1].classList.toggle('slider__item_active');
+            sliderDots[imageNum + 1].classList.toggle('slider__dot_active');
+            return;
+        }
+    } else if (value == 'prev') {
+        if (imageNum == 0) {
+            sliderItems[sliderItems.length - 1].classList.toggle('slider__item_active');
+            sliderDots[sliderItems.length - 1].classList.toggle('slider__dot_active');
+            return;
+        } else {
+            sliderItems[imageNum - 1].classList.toggle('slider__item_active');
+            sliderDots[imageNum - 1].classList.toggle('slider__dot_active');
+            return;
+        }
+    } else {
+        sliderItems[value].classList.toggle('slider__item_active');
+        sliderDots[value].classList.toggle('slider__dot_active');
+        return;
+    }
+}
+
+function getSliderDot() {
     for (let i = 0; i < sliderItems.length; i++) {
         if (sliderItems[i].classList.contains('slider__item_active')) {
             sliderDots[i].classList.toggle('slider__dot_active');
+        } 
+        sliderDots[i].onclick = function() {
+            getImage(i);
         }
     }
 }
-checkSliderDot();
-
-prev.onclick = function() {
-    for (let i = 4; i < sliderItems.length; i--) {
-        if (i == 0) {
-            sliderItems[i].classList.toggle('slider__item_active');
-            sliderDots[i].classList.toggle('slider__dot_active');
-            i = 4;
-            sliderItems[i].classList.toggle('slider__item_active');
-            sliderDots[i].classList.toggle('slider__dot_active');
-            return;
-        }else if (sliderItems[i].classList.contains('slider__item_active')) {
-            sliderItems[i].classList.toggle('slider__item_active');
-            sliderDots[i].classList.toggle('slider__dot_active');
-            sliderItems[i-1].classList.toggle('slider__item_active');
-            sliderDots[i-1].classList.toggle('slider__dot_active');
-            return;
-        }
-    }
-}
-
-next.onclick = function() {
-    for (let i = 0; i < sliderItems.length; i++) {
-        if (i == 4) {
-            sliderItems[i].classList.toggle('slider__item_active');
-            sliderDots[i].classList.toggle('slider__dot_active');
-            i = 0;
-            sliderItems[i].classList.toggle('slider__item_active');
-            sliderDots[i].classList.toggle('slider__dot_active');
-            return;
-        }else if (sliderItems[i].classList.contains('slider__item_active')) {
-            sliderItems[i].classList.toggle('slider__item_active');
-            sliderDots[i].classList.toggle('slider__dot_active');
-            sliderItems[i+1].classList.toggle('slider__item_active');
-            sliderDots[i+1].classList.toggle('slider__dot_active');
-            return;
-        }
-    }
-}
-
-for (let i = 0; i < sliderDots.length; i++) {
-    sliderDots[i].onclick = function() {
-        document.querySelector('.slider__item_active').classList.toggle('slider__item_active');
-        document.querySelector('.slider__dot_active').classList.toggle('slider__dot_active');
-        sliderItems[i].classList.toggle('slider__item_active');
-        sliderDots[i].classList.toggle('slider__dot_active');
-    }
-}
+getSliderDot();
