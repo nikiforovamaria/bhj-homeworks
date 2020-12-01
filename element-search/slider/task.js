@@ -11,42 +11,36 @@ function getArrow() {
             } else {
             value = 'next';
             }
-            getImage(value);
+            setImage(value);
         }
     }
 }
 
 getArrow();
 
-function getImage(value) {
+function setImage(value) {
     const imageNum = sliderItems.findIndex(item => item.classList.contains('slider__item_active'));
     sliderItems[imageNum].classList.toggle('slider__item_active');
     sliderDots[imageNum].classList.toggle('slider__dot_active');
+    let num;
     if (value == 'next') {
         if (imageNum == sliderItems.length - 1) {
-            sliderItems[0].classList.toggle('slider__item_active');
-            sliderDots[0].classList.toggle('slider__dot_active');
-            return;
+            num = 0;
         } else {
-            sliderItems[imageNum + 1].classList.toggle('slider__item_active');
-            sliderDots[imageNum + 1].classList.toggle('slider__dot_active');
-            return;
+            num = imageNum + 1;
         }
     } else if (value == 'prev') {
         if (imageNum == 0) {
-            sliderItems[sliderItems.length - 1].classList.toggle('slider__item_active');
-            sliderDots[sliderItems.length - 1].classList.toggle('slider__dot_active');
-            return;
+            num = sliderItems.length - 1;
         } else {
-            sliderItems[imageNum - 1].classList.toggle('slider__item_active');
-            sliderDots[imageNum - 1].classList.toggle('slider__dot_active');
-            return;
+            num = imageNum - 1;
         }
     } else {
-        sliderItems[value].classList.toggle('slider__item_active');
-        sliderDots[value].classList.toggle('slider__dot_active');
-        return;
+        num = value;
     }
+    sliderItems[num].classList.toggle('slider__item_active');
+    sliderDots[num].classList.toggle('slider__dot_active');
+    return;
 }
 
 function getSliderDot() {
@@ -55,8 +49,9 @@ function getSliderDot() {
             sliderDots[i].classList.toggle('slider__dot_active');
         } 
         sliderDots[i].onclick = function() {
-            getImage(i);
+            setImage(i);
         }
     }
 }
+
 getSliderDot();
