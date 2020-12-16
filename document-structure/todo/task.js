@@ -5,21 +5,18 @@ const form = document.getElementById('tasks__form');
 
 function addTask() {
     if (input.value.trim() != '') {
-        taskList.innerHTML += `<div class="task">
+        taskList.insertAdjacentHTML('afterbegin', `<div class="task">
         <div class="task__title">
           ${input.value}
         </div>
         <a href="#" class="task__remove">&times;</a>
-      </div>`
+      </div>`);
       input.value = '';
     }   
-    const remove = Array.from(document.querySelectorAll('.task__remove'));
-    for (let item of remove) {
-        item.addEventListener('click', (e) => {
+    taskList.firstChild.querySelector('.task__remove').addEventListener('click', (e) => {
         e.preventDefault();
-        item.closest('.task').remove();
-        });
-    }
+        e.target.closest('.task').remove();
+    });
 }
 
 form.addEventListener('submit', (e) => {
