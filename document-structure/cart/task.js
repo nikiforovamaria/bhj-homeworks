@@ -27,10 +27,10 @@ for (let item of buttonAdd) {
             const num = Number(cartProducts.querySelector(`[data-id = '${id}']`).querySelector('.cart__product-count').textContent);
             cartProducts.querySelector(`[data-id = '${id}']`).querySelector('.cart__product-count').textContent = num + count;
         } else {
-            cartProducts.innerHTML += `<div class="cart__product" data-id="${id}">
+            cartProducts.insertAdjacentHTML('beforeend', `<div class="cart__product" data-id="${id}">
                 <img class="cart__product-image" src="${img}">
                 <div class="cart__product-count">${count}</div>
-                </div>`;
+                </div>`);
         }
     });
 }
