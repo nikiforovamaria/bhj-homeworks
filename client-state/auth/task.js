@@ -6,9 +6,9 @@ const signOut = document.getElementById('signout__btn');
 
 
 window.addEventListener('load', () => {
-    if (localStorage.userId) {
+    if (localStorage.getItem('userId')) {
         welcome.classList.add('welcome_active');
-        userId.textContent = localStorage.userId;
+        userId.textContent = localStorage.getItem('userId');
     } else {
         signIn.classList.add('signin_active');
     }
@@ -25,7 +25,7 @@ signInForm.addEventListener('submit', (e) => {
                 localStorage.userId = user.user_id;
                 signIn.classList.remove('signin_active');
                 welcome.classList.add('welcome_active');
-                userId.textContent = localStorage.userId;
+                userId.textContent = localStorage.getItem('userId');
             } else {
                 alert('Неверный логин/пароль');
                 signInForm.reset();
@@ -39,6 +39,6 @@ signInForm.addEventListener('submit', (e) => {
 signOut.addEventListener('click', () => {
     welcome.classList.remove('welcome_active');
     signIn.classList.add('signin_active');
-    localStorage.clear();
+    localStorage.removeItem('userId');
     signInForm.reset();
 });
