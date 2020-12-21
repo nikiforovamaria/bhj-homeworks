@@ -3,16 +3,13 @@ const button = document.getElementById('button_clear');
 
 editor.addEventListener('input', () => {
     localStorage.editor = editor.value;
-    console.log(localStorage.editor);
 });
 
 window.addEventListener('load', () => {
-    if (localStorage.editor) {
-        editor.value = localStorage.editor;
-    }
+    editor.value = localStorage.getItem('editor');
 });
 
 button.addEventListener('click', () => {
-    localStorage.clear();
+    localStorage.removeItem('editor');
     editor.value = '';
 })
