@@ -2,7 +2,7 @@ const modal = document.getElementById('subscribe-modal');
 const modalClose = document.querySelector('.modal__close');
 
 window.addEventListener('load', () => {
-    if (document.cookie = '') {
+    if (document.cookie == '') {
         modal.classList.add('modal_active');
     }
 });
